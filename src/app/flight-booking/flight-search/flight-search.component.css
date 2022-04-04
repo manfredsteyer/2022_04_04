@@ -1,0 +1,20 @@
+.active {
+    background-color: darkkhaki;
+}
+
+A {
+    cursor: pointer;
+}
+
+input.ng-valid.ng-dirty {
+    border-left:  solid 5px green;
+}
+
+
+input.ng-invalid.ng-dirty {
+    border-left:  solid 5px red;
+}
+
+input.ng-invalid.ng-pristine {
+    border-left:  solid 5px gray;
+}

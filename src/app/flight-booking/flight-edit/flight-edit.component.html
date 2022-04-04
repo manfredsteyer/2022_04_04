@@ -1,0 +1,24 @@
+
+<h1>Flight Edit</h1>
+
+<form [formGroup]="formGroup">
+    <input formControlName="id">
+    <input formControlName="from">
+    <input formControlName="to">
+    <input formControlName="date">
+    <input formControlName="delayed" type="checkbox">
+
+    <button (click)="save()">Save</button>
+
+</form>
+
+
+<form [formGroup]="formGroup">
+
+    <ng-container *ngFor="let item of meta">
+        {{ item.label }}: <input [formControlName]="item.name" [type]="item.type">
+    </ng-container>
+
+</form>
+
+<pre>{{ formGroup.controls.from.errors | json }}</pre>

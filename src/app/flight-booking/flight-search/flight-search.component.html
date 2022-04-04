@@ -1,0 +1,110 @@
+<div class="card">
+
+    <div class="header">
+        <h2 class="title">Flight Search</h2>
+    </div>
+    <div class="content">
+
+        <form #f="ngForm" roundTrip>
+
+            <div>
+                {{ f.errors | json }}
+            </div>
+
+            <div *ngIf="f.hasError('roundTrip')">
+                roundTrip!!!
+            </div>
+
+            <div class="form-group">
+                <label>From:</label>
+                <input name="from" class="form-control" [(ngModel)]="from" required minlength="3" [city]="['Graz', 'Hamburg', 'Berlin', 'Wien', 'Zürich', 'Bern']">
+            
+                <div *ngIf="!f?.controls?.from?.valid">
+                    Error !!!
+                </div>
+                <div *ngIf="f?.controls?.from?.hasError('minlength')">
+                    minlength !!!
+                </div>
+                <div *ngIf="f?.controls?.from?.hasError('required')">
+                    required !!!
+                </div>
+                <div *ngIf="f?.controls?.from?.hasError('city')">
+                    city !!!
+                </div>
+                <pre>{{ f?.controls?.from?.errors | json }}</pre>
+            </div>
+
+
+            <div class="form-group">
+                <label>To:</label>
+                <input name="to" asyncCity class="form-control" [(ngModel)]="to">
+            
+                <div *ngIf="f?.controls.to?.hasError('asyncCity')">
+                    asyncCity !!!
+                </div>
+                <pre>{{f?.controls.to?.errors | json }}</pre>
+                <marquee *ngIf="f?.controls.to?.pending">
+                    Please wait!!!
+                </marquee>
+            
+            </div>
+
+            <div class="form-group">
+                <button class="btn btn-default" [disabled]="!from || !to" (click)="search()">Search</button>
+
+
+            </div>
+        </form>
+
+    </div>
+</div>
+
+
+<!-- <div class="card">
+    
+        <table class="table table-contensed" *ngIf="flights.length > 0">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>From</th>
+                <th>To</th>
+                <th>Date</th>
+                <th>Delayed</th>
+
+                <th></th>
+            </tr>
+            </thead>
+         
+            <tr *ngFor="let f of flights" [class.active]="f === selectedFlight" [ngClass]="{'active': f === selectedFlight}">
+                <td>{{f.id}}</td>
+                <td>{{f.from | city:'long'}}</td>
+                <td>{{f.to | city:'short'}}</td>
+                <td>{{f.date | date:'dd.MM.yyyy HH:mm:ss'}}</td>
+                <td>{{f.delayed}}</td>
+                <td>
+                    <a (click)="select(f)">Select</a> 
+                
+                </td>
+            </tr>
+        </table>
+    
+    </div> -->
+
+
+<div class="row">
+    <div *ngFor="let f of flights">
+
+        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+            <app-flight-card [item]="f" [(selected)]="basket[f.id]"></app-flight-card>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <div class="content">
+        <pre>{{ basket | json }}</pre>
+    </div>
+</div>
+
+
+<app-flight-edit></app-flight-edit>
