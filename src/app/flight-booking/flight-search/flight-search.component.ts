@@ -33,6 +33,10 @@ export class FlightSearchComponent implements OnInit {
 
   search(): void {
 
+    if (!this.from || !this.to) {
+      return;
+    }
+
     // throw new Error('Manfred hat hunger!!');
 
     // this.flights = [
@@ -49,7 +53,6 @@ export class FlightSearchComponent implements OnInit {
         console.error('err', err);
       }
     });
-
   
   }
 

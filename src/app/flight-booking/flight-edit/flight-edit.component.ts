@@ -1,13 +1,21 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { Observable, Observer } from 'rxjs';
+import { Flight } from '../../model/flight';
 import { cityValidator } from '../../shared/city-validator';
+import { ComponentWithExitWarning } from '../../shared/exit/exit.guard';
 
 @Component({
   selector: 'app-flight-edit',
   templateUrl: './flight-edit.component.html',
   styleUrls: ['./flight-edit.component.css']
 })
-export class FlightEditComponent implements OnInit {
+export class FlightEditComponent implements OnInit, ComponentWithExitWarning {
+
+  id: string;
+  showDetails: string;
+  flight: Flight;
 
   meta = [
     { label: 'Id', name: 'id' },
@@ -18,8 +26,25 @@ export class FlightEditComponent implements OnInit {
   ];
 
   formGroup: FormGroup;
+  router: Observer<boolean>;
+  showWarning = false;
+  
+  decide(decision: boolean): void {
+    this.showWarning = false;
+    this.router.next(decision);
+    this.router.complete();
+  }
 
-  constructor(private fb: FormBuilder) { 
+  canExit(): Observable<boolean> {
+    this.showWarning = true;
+    return new Observable<boolean>(observer => {
+      this.router = observer;
+    });
+  }
+
+  constructor(
+    private route: ActivatedRoute,
+    private fb: FormBuilder) { 
 
     this.formGroup = fb.group({
       id: [],
@@ -54,6 +79,8 @@ export class FlightEditComponent implements OnInit {
 
   }
 
+
+
   save(): void {
     console.debug(
       'Would save, if this was not a shareware version', 
@@ -63,6 +90,18 @@ export class FlightEditComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this.route.params.subscribe(params => {
+      this.id = params['id'];
+      // this.id = params.id;
+      this.showDetails = params['showDetails'];
+    });
+  
+    this.route.data.subscribe(data => {
+      this.flight = data['flight'];
+    });
+
+    this.formGroup.patchValue(this.flight);
+  
   }
 
 }

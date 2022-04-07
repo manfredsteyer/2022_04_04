@@ -8,6 +8,14 @@ import { Flight } from '../../model/flight';
 export class DefaultFlightService implements FlightService {
 
   constructor(private http: HttpClient) { }
+  
+  findById(id: string): Observable<Flight> {
+    const url = 'http://www.angular.at/api/flight';
+    const params = new HttpParams().set('id', id);
+    const headers = new HttpHeaders().set('Accept', 'application/json'); //.set('Authorization', 'Bearer adflsdflkjsddfasdk==')
+    
+    return this.http.get<Flight>(url, { params, headers});
+  }
 
   find(from: string, to: string): Observable<Flight[]> {
     const url = 'http://www.angular.at/api/flight';
@@ -24,6 +32,10 @@ export class DefaultFlightService implements FlightService {
 export class DummyFlightService implements FlightService {
 
   constructor() {
+  }
+ 
+  findById(id: string): Observable<Flight> {
+    throw new Error('Method not implemented.');
   }
 
   find(from: string, to: string): Observable<Flight[]> {
@@ -56,5 +68,5 @@ const DEBUG = false;
 export abstract class FlightService {
 
   abstract find(from: string, to: string): Observable<Flight[]>;
-
+  abstract findById(id: string): Observable<Flight>;
 }

@@ -1,18 +1,24 @@
 <div class="wrapper">
 
-  <div class="sidebar" data-background-color="white" data-active-color="danger">
-      <sidebar-cmp></sidebar-cmp>
-  </div>
+    <div class="sidebar" data-background-color="white" data-active-color="danger">
+        <sidebar-cmp></sidebar-cmp>
+    </div>
 
-  <div class="main-panel">
-      <navbar-cmp></navbar-cmp>
+    <div class="main-panel">
+        <navbar-cmp></navbar-cmp>
 
-      <div class="content">
-           
-          <!-- <h1>{{title}}</h1> -->
-          <app-flight-search></app-flight-search>
-          
-      </div>
-  </div>
+        <div class="content">
+
+            <h2 *ngIf="loading">Loading</h2>
+
+            <!-- <h1>{{title}}</h1> -->
+            <!-- <app-flight-search></app-flight-search> -->
+            <router-outlet></router-outlet>
+
+            <router-outlet name="aux"></router-outlet>
+
+
+        </div>
+    </div>
 
 </div>

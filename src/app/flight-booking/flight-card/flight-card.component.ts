@@ -1,6 +1,8 @@
 import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
 import { Flight } from '../../model/flight';
 
+// <app-flight-card></app-flight-card>
+
 @Component({
   selector: 'app-flight-card',
   templateUrl: './flight-card.component.html',
