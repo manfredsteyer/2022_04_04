@@ -15,6 +15,11 @@
                 roundTrip!!!
             </div>
 
+            <hr>
+
+            <app-validation-error [control]="f"></app-validation-error>
+
+
             <div class="form-group">
                 <label>From:</label>
                 <input name="from" class="form-control" [(ngModel)]="from" required minlength="3" [city]="['Graz', 'Hamburg', 'Berlin', 'Wien', 'Zürich', 'Bern']">
@@ -32,6 +37,11 @@
                     city !!!
                 </div>
                 <pre>{{ f?.controls?.from?.errors | json }}</pre>
+            
+                <hr>
+
+                <app-validation-error [control]="f?.controls?.from"></app-validation-error>
+            
             </div>
 
 

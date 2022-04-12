@@ -5,6 +5,7 @@ import { CityPipe } from './city.pipe';
 import { CityValidatorDirective } from './city-validator.directive';
 import { RoundtripValidatorDirective } from './roundtrip-validator.directive';
 import { AsyncCityValidatorDirective } from './async-city-validator.directive';
+import { ValidationErrorComponent } from './validation/validation-error/validation-error.component';
 
 @NgModule({
     imports: [
@@ -14,11 +15,12 @@ import { AsyncCityValidatorDirective } from './async-city-validator.directive';
         CityPipe,
         CityValidatorDirective,
         RoundtripValidatorDirective,
-        AsyncCityValidatorDirective
+        AsyncCityValidatorDirective,
+        ValidationErrorComponent
     ],
     providers: [],
     exports: [
-        CityPipe, FormsModule, CityValidatorDirective, RoundtripValidatorDirective, AsyncCityValidatorDirective
+        CityPipe, FormsModule, CityValidatorDirective, RoundtripValidatorDirective, AsyncCityValidatorDirective, ValidationErrorComponent
     ],
 })
 export class SharedModule { }
